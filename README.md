@@ -1,4 +1,4 @@
-# 🎓 CareerMate
+#  CareerMate
 
 **CareerMate** is a comprehensive career guidance system that helps students discover their ideal academic stream through intelligent aptitude testing and personalized recommendations.
 
