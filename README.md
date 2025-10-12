@@ -28,29 +28,21 @@
 ![Homepage](screenshots/homepage.png)
 *Clean, modern interface welcoming users to CareerMate*
 
-**Users Dashboard**
-*Simple and  user friendly dashboard*
 
-**Login Interface**
+
+**Users Dashboard**
 ![Login Page](screenshots/login-page.png)
-*Secure authentication with modern design*
+*Simple and user friendly dashboard*
 
 </div>
 
 ### 🎯 Testing Experience
 <div align="center">
 
-**Student Dashboard**
+**Admin Dashboard**
 ![Dashboard](screenshots/dashboard.png)
-*Personalized dashboard showing test history and progress*
+*Admin dashboard showing detailed test history and progress*
 
-**Aptitude Test Interface**
-![Test Interface](screenshots/test-interface.png)
-*Interactive test environment with timer and progress tracking*
-
-**Test Results & Analysis**
-![Test Results](screenshots/test-results.png)
-*Comprehensive results with subject-wise breakdown and recommendations*
 
 </div>
 
