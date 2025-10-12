@@ -263,8 +263,7 @@ CareerMate includes a robust email service for:
 
 - **Mobile-First** - Optimized for mobile devices
 - **Cross-Browser** - Compatible with modern browsers
-- **Accessibility** - WCAG 2.1 compliant design
-- **Progressive Enhancement** - Works without JavaScript
+
 
 ## 🤝 Contributing
 
