@@ -2,7 +2,7 @@
 
 **CareerMate** is a comprehensive career guidance system that helps students discover their ideal academic stream through intelligent aptitude testing and personalized recommendations.
 
-## � System Flowchart
+## 🔄 System Flowchart
 
 <div align="center">
 
@@ -11,7 +11,7 @@
 
 </div>
 
-##  Table of Contents
+## 📚 Table of Contents
 
 - [System Flowchart](#-system-flowchart)
 - [Screenshots](#-screenshots)
@@ -63,6 +63,7 @@
 - **Detailed Results Analysis** - In-depth performance breakdown with subject-wise scoring
 - **PDF Report Generation** - Professional test results reports with charts and analysis
 - **Email Integration** - Automated result delivery with PDF attachments
+- **Chatbot**-for 24*7 Assistance and guidance 
 
 ### 👥 User Management
 - **Student Portal** - Secure registration, login, and profile management
@@ -230,9 +231,9 @@ EMAIL_PASS=your_app_specific_password
 
 ### Database Configuration
 ```env
-MONGO_URL=mongodb://localhost:27017/careermate
+MONGO_URL=mongodb://localhost:27017/
 # OR for MongoDB Atlas
-MONGO_URL=mongodb+srv://username:password@cluster.mongodb.net/careermate
+MONGO_URL=mongodb+srv://username:password@cluster.mongodb.net/
 ```
 
 ### Security Settings
