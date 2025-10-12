@@ -220,9 +220,9 @@ EMAIL_PASS=your_app_specific_password
 
 ### Database Configuration
 ```env
-MONGO_URL=mongodb://localhost:27017/careermate
+MONGO_URL=mongodb://localhost:27017/
 # OR for MongoDB Atlas
-MONGO_URL=mongodb+srv://username:password@cluster.mongodb.net/careermate
+MONGO_URL=mongodb+srv://username:password@cluster.mongodb.net/
 ```
 
 ### Security Settings
