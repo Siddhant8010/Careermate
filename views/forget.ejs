@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CareerMate — Forgot Password</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/forget.css" />
+
+</head>
+<body>
+  <main class="page" role="main">
+    <section class="shell" aria-label="Forgot Password">
+      <div class="hero">
+        <img id="heroImage"
+             src="https://i.pinimg.com/736x/90/30/b2/9030b2c9a9068af4d6f76ef2e304bc83.jpg"
+             alt="Child learning numbers in classroom" />
+      </div>
+
+      <div class="panel">
+        <div class="welcome">
+          <div class="auth-logo">
+            <img src="/Images/logo.png" alt="CareerMate Logo" class="logo-img">
+            <h1>CareerMate</h1>
+          </div>
+
+          <div id="auth-tabs" class="segmented" role="tablist" aria-label="Password reset mode">
+            <button id="tabForgot" role="tab" aria-selected="true" aria-pressed="true">Forgot Password</button>
+            <button id="tabOtp" role="tab" aria-selected="false" aria-pressed="false">Enter OTP</button>
+          </div>
+        </div>
+
+        <p id="lead" class="lead">
+          Enter your email address to receive a password reset OTP.
+        </p>
+
+        <!-- Forgot Password Form -->
+        <form id="forgotForm" action="/forgot-password" method="POST" novalidate>
+          <div class="field">
+            <label for="forgot-email">Email Address</label>
+            <div class="input-wrap">
+              <input id="forgot-email" class="input" name="email" type="email" placeholder="Enter your registered email" required />
+            </div>
+            <div class="error hidden" id="forgot-email-error">Please enter a valid email address.</div>
+          </div>
+
+          <button class="cta" type="submit">Send OTP</button>
+
+          <div class="back-link">
+            <a href="/login" title="Back to login">← Back to Login</a>
+          </div>
+        </form>
+
+        <!-- OTP Verification Form -->
+        <form id="otpForm" class="hidden" action="/reset-password" method="POST" novalidate>
+          <div class="field">
+            <label for="otp-email">Email Address</label>
+            <div class="input-wrap">
+              <input id="otp-email" class="input" name="email" type="email" placeholder="Enter your email" required readonly />
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="otp-code">Enter OTP</label>
+            <div class="input-wrap">
+              <input id="otp-code" class="input" name="otp" type="text" placeholder="Enter 6-digit OTP" maxlength="6" required />
+            </div>
+            <div class="error hidden" id="otp-error">Please enter a valid OTP.</div>
+          </div>
+
+          <div class="field">
+            <label for="new-password">New Password</label>
+            <div class="input-wrap">
+              <input id="new-password" class="input" name="newPassword" type="password" placeholder="Enter new password" required minlength="6" />
+              <button type="button" class="toggle-password" aria-label="Toggle password visibility" aria-pressed="false" data-target="new-password">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"/>
+                  <circle cx="12" cy="12" r="3"/>
+                </svg>
+              </button>
+            </div>
+            <div class="error hidden" id="new-password-error">Password must be at least 6 characters.</div>
+          </div>
+
+          <button class="cta" type="submit">Reset Password</button>
+
+          <div class="row">
+            <a href="#" id="resendOtp" title="Resend OTP">Resend OTP</a>
+            <a href="/login" title="Back to login">← Back to Login</a>
+          </div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container" class="toast-container"></div>
+
+        <script src="../js/forget.js"></script>
+</body>
+</html>

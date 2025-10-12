@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title || 'CareerMate - Test Rules' %></title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/test.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header-logo">
+            <img src="/Images/logo.png" alt="CareerMate Logo" class="logo-img">
+            <h1>Career Mate</h1>
+        </div>
+    </header>
+
+    <main class="landing-container">
+        <div class="landing-content">
+            <h2 class="landing-headline">Discover Your Ideal 10th Standard Stream</h2>
+            
+            <div class="instructions-card">
+                <h3>Test Instructions</h3>
+                <ol class="instructions-list">
+                    <li>This test contains <strong>25 Multiple Choice Questions (MCQs)</strong></li>
+                    <li>Total time allowed: <strong>30 minutes</strong></li>
+                    <li>Subjects covered: <strong>Physics, Chemistry, Mathematics, Biology,logicalreasoning</strong></li>
+                    <li>Each subject has <strong>5 questions</strong></li>
+                    <li>Your progress is automatically saved</li>
+                    <li>You can navigate between questions freely</li>
+                    <li>Click "Submit Test" when you're done</li>
+                </ol>
+            </div>
+
+            <div class="action-buttons">
+                <a href="/test<%= (typeof testId !== 'undefined' && testId) ? '?testId=' + testId : '' %>" class="btn btn-primary" id="startBtn">Start Test</a>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2025 Career Mate. All rights reserved.</p>
+    </footer>
+
+    <script src="/js/test.js"></script>
+</body>
+</html>

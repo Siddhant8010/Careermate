@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CareerMate — Login / Register</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/auth.css" />
+
+</head>
+<body data-initial-tab="<%= initialTab %>">
+  <main class="page" role="main">
+    <section class="shell" aria-label="Authentication">
+      <div class="hero">
+        <img id="heroImage"
+             src="https://i.pinimg.com/736x/90/30/b2/9030b2c9a9068af4d6f76ef2e304bc83.jpg"
+             alt="Child learning numbers in classroom" />
+      </div>
+
+      <div class="panel">
+        <div class="welcome">
+          <div class="auth-logo">
+            <img src="/Images/logo.png" alt="CareerMate Logo" class="logo-img">
+            <h1>CareerMate</h1>
+          </div>
+          
+          <!-- Admin Login Indicator -->
+          <div id="admin-indicator" class="admin-indicator" style="display: none;">
+            <div class="admin-badge">
+              
+              <span class="admin-text">Admin Portal</span>
+            </div>
+          </div>
+          
+          <div id="auth-tabs" class="segmented" role="tablist" aria-label="Auth mode">
+            <button id="tabLogin" role="tab" aria-selected="true" aria-pressed="true">Login</button>
+            <button id="tabRegister" role="tab" aria-selected="false" aria-pressed="false">Sign Up</button>
+          </div>
+        </div>
+
+        <p id="lead" class="lead">
+          Log in to continue your Career Finding journey with CareerMate — your personal online Path Finder.
+        </p>
+         
+        <form id="loginForm" action="/login" method="POST" novalidate>
+          <div class="field">
+            <label for="login-email">Email Address</label>
+            <div class="input-wrap">
+              <input id="login-email" class="input" name="email" type="email" placeholder="Enter your Email Address" required />
+            </div>
+            <div class="error hidden" id="login-email-error">Please enter your email address.</div>
+          </div>
+
+          <div class="field">
+            <label for="login-password">Password</label>
+            <div class="input-wrap">
+              <input id="login-password" class="input" name="password" type="password" placeholder="Enter your Password" required />
+              <button type="button" class="toggle-password" aria-label="Toggle password visibility" aria-pressed="false" data-target="login-password">
+                  
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"/>
+                  <circle cx="12" cy="12" r="3"/>
+                </svg>
+              </button>
+            </div>
+            <div class="error hidden" id="login-password-error">Please enter your password.</div>
+          </div>
+
+          <div class="row">
+            <label>
+              <input id="remember" type="checkbox" />
+              <span>Remember me</span>
+            </label>
+            <a href="/forget" title="Reset your password">Forgot Password ?</a>
+          </div>
+          
+          <button class="cta" type="submit">Login</button>
+        </form>
+
+         
+        <form id="registerForm" class="hidden" action="/signup" method="POST" novalidate>
+
+          <div class="field">
+            <label for="reg-email">Email Address</label>
+            <div class="input-wrap">
+              <input id="reg-email" class="input" name="email" type="email" placeholder="Enter your Email Address" required />
+            </div>
+            <div class="error hidden" id="reg-email-error">Please enter a valid email address.</div>
+          </div>
+
+          <div class="field">
+            <label for="reg-username">User name</label>
+            <div class="input-wrap">
+              <input id="reg-username" class="input" name="username" type="text" placeholder="Enter your User name" required />
+            </div>
+            <div class="error hidden" id="reg-username-error">Please choose a user name.</div>
+          </div>
+
+          <div class="field">
+            <label for="reg-password">Password</label>
+            <div class="input-wrap">
+              <input id="reg-password" class="input" name="password" type="password" placeholder="Enter your Password" required minlength="6" />
+              <button type="button" class="toggle-password" aria-label="Toggle password visibility" aria-pressed="false" data-target="reg-password">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"/>
+                  <circle cx="12" cy="12" r="3"/>
+                </svg>
+              </button>
+            </div>
+            <div class="error hidden" id="reg-password-error">Password must be at least 6 characters.</div>
+          </div>
+
+          <button class="cta" type="submit">Sign Up</button>
+        </form>
+
+        <!-- OTP Verification Form -->
+        <form id="otpVerificationForm" class="hidden" novalidate>
+          <div class="field">
+            <label for="otp-email">Email Address</label>
+            <div class="input-wrap">
+              <input id="otp-email" class="input" name="email" type="email" placeholder="Enter your Email Address" />
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="otp-code">Verification Code</label>
+            <div class="input-wrap">
+              <input id="otp-code" class="input" name="otp" type="text" placeholder="Enter 6-digit code" maxlength="6" required />
+            </div>
+            <div class="error hidden" id="otp-error">Please enter the 6-digit verification code.</div>
+          </div>
+
+          <div class="field">
+            <button type="button" id="resendOtp" class="link-button">Resend Code</button>
+            <span id="resendTimer" class="hidden">Resend in <span id="timerCount">60</span>s</span>
+          </div>
+
+          <button class="cta" type="submit">Verify Email</button>
+          <button type="button" id="backToSignup" class="secondary-button">Back to Sign Up</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container" class="toast-container"></div>
+
+        <script src="../js/auth.js"></script>
+</body>
+</html>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title || 'Career Mate - Your Results' %></title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/test.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header-logo">
+            <img src="/Images/logo.png" alt="CareerMate Logo" class="logo-img">
+            <h1>Career Mate</h1>
+        </div>
+    </header>
+
+    <main class="results-container">
+        <div class="results-content">
+            <h2 class="results-title">Your Career Assessment Results</h2>
+
+            <!-- Added overall score display -->
+            <div class="overall-score-card">
+                <h3>Overall Score</h3>
+                <div class="overall-score" id="overallScore"><%= overallScore %>/<%= totalQuestions %></div>
+            </div>
+
+            <!-- Subject Score Breakdown -->
+            <div class="subject-breakdown">
+                <h3>Subject-wise Performance</h3>
+                <div class="subject-cards">
+                    <div class="subject-card">
+                        <h4>Physics</h4>
+                        <div class="score-display" id="physicsScore"><%= subjectScores.physics %></div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="physicsProgress"></div>
+                        </div>
+                    </div>
+
+                    <div class="subject-card">
+                        <h4>Chemistry</h4>
+                        <div class="score-display" id="chemistryScore"><%= subjectScores.chemistry %></div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="chemistryProgress"></div>
+                        </div>
+                    </div>
+
+                    <div class="subject-card">
+                        <h4>Mathematics</h4>
+                        <div class="score-display" id="mathsScore"><%= subjectScores.maths %></div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="mathsProgress"></div>
+                        </div>
+                    </div>
+
+                    <div class="subject-card">
+                        <h4>Biology</h4>
+                        <div class="score-display" id="biologyScore"><%= subjectScores.biology %></div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="biologyProgress"></div>
+                        </div>
+                    </div>
+
+                    <div class="subject-card">
+                        <h4>Logical Reasoning</h4>
+                        <div class="score-display" id="logicalreasoningScore"><%= subjectScores.logicalreasoning %></div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="logicalreasoningProgress"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Simplified recommendation card with solid navy blue background -->
+            <div class="recommendation-card">
+                <h3>Recommended Stream</h3>
+                <div class="recommendation-badge" id="recommendedStream"><%= recommendedStream %></div>
+                
+                <!-- Simple insight section without gauge -->
+                <div class="ai-insight">
+                    <h4>Career Insight</h4>
+                    <p id="insightText">Your strengths suggest the <%= recommendedStream %> stream fits you best.</p>
+                </div>
+            </div>
+
+            <!-- Detailed Answers Section -->
+            <% if (typeof detailedAnswers !== 'undefined' && detailedAnswers.length > 0) { %>
+            <div class="detailed-answers-section">
+                <h3>Your Answers Review</h3>
+                <button class="btn btn-secondary toggle-answers" id="toggleAnswersBtn">Show Detailed Answers</button>
+                
+                <div class="answers-list" id="answersList" style="display: none;">
+                    <% detailedAnswers.forEach((answer, index) => { %>
+                    <div class="answer-card <%= answer.isCorrect ? 'correct' : 'incorrect' %>">
+                        <div class="answer-header">
+                            <span class="answer-number">Question <%= index + 1 %></span>
+                            <span class="answer-subject"><%= answer.subject.toUpperCase() %></span>
+                            <span class="answer-status">
+                                <%= answer.isCorrect ? '✓ Correct' : '✗ Incorrect' %>
+                            </span>
+                        </div>
+                        <p class="answer-question"><%= answer.questionText %></p>
+                        <div class="answer-options">
+                            <% answer.options.forEach(option => { %>
+                            <div class="answer-option 
+                                <%= option === answer.correctAnswer ? 'correct-option' : '' %>
+                                <%= option === answer.selectedAnswer && !answer.isCorrect ? 'wrong-option' : '' %>
+                                <%= option === answer.selectedAnswer && answer.isCorrect ? 'selected-correct' : '' %>">
+                                <span class="option-text"><%= option %></span>
+                                <% if (option === answer.correctAnswer) { %>
+                                    <span class="option-label">Correct Answer</span>
+                                <% } else if (option === answer.selectedAnswer && !answer.isCorrect) { %>
+                                    <span class="option-label">Your Answer</span>
+                                <% } %>
+                            </div>
+                            <% }); %>
+                        </div>
+                    </div>
+                    <% }); %>
+                </div>
+            </div>
+            <% } %>
+
+            <!-- Post-Test Actions -->
+            <div class="action-buttons">
+                <!-- PDF notification removed as requested -->
+                <button class="btn btn-secondary" id="studyPlanBtn">Back to Dashboard</button>
+                <button class="btn btn-primary" id="retakeBtn">Retake Quiz</button>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2025 Career Mate. All rights reserved.</p>
+    </footer>
+
+    <!-- Pass data to JavaScript -->
+    <meta id="result-data" 
+          data-physics="<%= subjectScores.physics %>" 
+          data-chemistry="<%= subjectScores.chemistry %>" 
+          data-maths="<%= subjectScores.maths %>" 
+          data-biology="<%= subjectScores.biology %>"
+          data-logicalreasoning="<%= subjectScores.logicalreasoning %>">
+    
+    <script src="/js/test.js"></script>
+</body>
+</html>

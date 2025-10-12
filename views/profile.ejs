@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile - CareerMate</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/profile.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <img src="/Images/logo.png" alt="CareerMate Logo" class="logo-img">
+                <span>CareerMate</span>
+            </div>
+            <button class="back-btn" onclick="window.location.href='/dashboard'">
+                <i class="fas fa-arrow-left"></i> Back to Dashboard
+            </button>
+        </div>
+    </header>
+
+    <div class="profile-container">
+        <!-- Profile Header -->
+        <div class="profile-header">
+            <div class="profile-avatar-section">
+                <div class="avatar-wrapper">
+                    <img src="https://ui-avatars.com/api/?name=<%= typeof user !== 'undefined' && user ? user.username : 'User' %>&size=120&background=000ead&color=fff&bold=true" alt="Profile" class="profile-avatar" id="profileAvatar">
+                </div>
+                <div class="profile-info">
+                    <h1 class="profile-name" id="displayName"><%= typeof user !== 'undefined' && user ? user.username : 'Student' %></h1>
+                    <p class="profile-email" id="displayEmail"><%= typeof user !== 'undefined' && user ? user.email : 'student@example.com' %></p>
+                    <span class="profile-badge">Student</span>
+                </div>
+            </div>
+            <div class="profile-actions">
+                <button class="btn btn-primary" id="editProfileBtn" onclick="toggleEditMode()">
+                    <i class="fas fa-edit"></i> Edit Profile
+                </button>
+                <button class="btn btn-danger" id="deleteProfileBtn" onclick="confirmDelete()">
+                    <i class="fas fa-trash"></i> Delete Account
+                </button>
+            </div>
+        </div>
+
+        <!-- Profile Content -->
+        <div class="profile-content">
+            <!-- View Mode -->
+            <div id="viewMode" class="view-mode">
+                <!-- Personal Information -->
+                <div class="info-section">
+                    <h2 class="section-title">
+                        <i class="fas fa-user"></i> Personal Information
+                    </h2>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <span class="info-label">First Name</span>
+                            <span class="info-value" id="viewFirstName"><%= typeof user !== 'undefined' && user && user.firstName ? user.firstName : 'Not set' %></span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Middle Name</span>
+                            <span class="info-value" id="viewMiddleName"><%= typeof user !== 'undefined' && user && user.middleName ? user.middleName : 'Not set' %></span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Last Name</span>
+                            <span class="info-value" id="viewLastName"><%= typeof user !== 'undefined' && user && user.lastName ? user.lastName : 'Not set' %></span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Username</span>
+                            <span class="info-value" id="viewUsername"><%= typeof user !== 'undefined' && user ? user.username : 'Not set' %></span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Email</span>
+                            <span class="info-value" id="viewEmail"><%= typeof user !== 'undefined' && user ? user.email : 'Not set' %></span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Phone</span>
+                            <span class="info-value" id="viewPhone"><%= typeof user !== 'undefined' && user && user.phone ? user.phone : 'Not set' %></span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Date of Birth</span>
+                            <span class="info-value" id="viewDob"><%= typeof user !== 'undefined' && user && user.dob ? new Date(user.dob).toLocaleDateString() : 'Not set' %></span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Age</span>
+                            <span class="info-value" id="viewAge"><%= typeof user !== 'undefined' && user && user.age ? user.age : 'Not set' %></span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Gender</span>
+                            <span class="info-value" id="viewGender"><%= typeof user !== 'undefined' && user && user.gender ? user.gender : 'Not set' %></span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">City</span>
+                            <span class="info-value" id="viewCity"><%= typeof user !== 'undefined' && user && user.city ? user.city : 'Not set' %></span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">State</span>
+                            <span class="info-value" id="viewState"><%= typeof user !== 'undefined' && user && user.state ? user.state : 'Not set' %></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Educational Information -->
+                <div class="info-section">
+                    <h2 class="section-title">
+                        <i class="fas fa-graduation-cap"></i> Educational Details
+                    </h2>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <span class="info-label">10th Percentage</span>
+                            <span class="info-value" id="viewTenthPercentage"><%= typeof user !== 'undefined' && user && user.tenthPercentage ? user.tenthPercentage + '%' : 'Not set' %></span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Board</span>
+                            <span class="info-value" id="viewBoard"><%= typeof user !== 'undefined' && user && user.board ? user.board : 'Not set' %></span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Physics Marks</span>
+                            <span class="info-value" id="viewPhysicsMarks"><%= typeof user !== 'undefined' && user && user.physicsMarks ? user.physicsMarks : 'Not set' %></span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Chemistry Marks</span>
+                            <span class="info-value" id="viewChemistryMarks"><%= typeof user !== 'undefined' && user && user.chemistryMarks ? user.chemistryMarks : 'Not set' %></span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Maths Marks</span>
+                            <span class="info-value" id="viewMathsMarks"><%= typeof user !== 'undefined' && user && user.mathsMarks ? user.mathsMarks : 'Not set' %></span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Biology Marks</span>
+                            <span class="info-value" id="viewBiologyMarks"><%= typeof user !== 'undefined' && user && user.biologyMarks ? user.biologyMarks : 'Not set' %></span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Area of Interest</span>
+                            <span class="info-value" id="viewInterest"><%= typeof user !== 'undefined' && user && user.interest ? user.interest : 'Not set' %></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Account Information -->
+                <div class="info-section">
+                    <h2 class="section-title">
+                        <i class="fas fa-info-circle"></i> Account Information
+                    </h2>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <span class="info-label">Member Since</span>
+                            <span class="info-value" id="viewCreatedAt"><%= typeof user !== 'undefined' && user && user.createdAt ? new Date(user.createdAt).toLocaleDateString() : 'Not available' %></span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Account Status</span>
+                            <span class="info-value"><span class="status-badge active">Active</span></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Edit Mode -->
+            <div id="editMode" class="edit-mode" style="display: none;">
+                <form id="profileForm">
+                    <!-- Personal Information -->
+                    <div class="form-section">
+                        <h2 class="section-title">
+                            <i class="fas fa-user"></i> Personal Information
+                        </h2>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="firstName">First Name</label>
+                                <input type="text" id="firstName" name="firstName" value="<%= typeof user !== 'undefined' && user && user.firstName ? user.firstName : '' %>" placeholder="Enter first name">
+                            </div>
+                            <div class="form-group">
+                                <label for="middleName">Middle Name</label>
+                                <input type="text" id="middleName" name="middleName" value="<%= typeof user !== 'undefined' && user && user.middleName ? user.middleName : '' %>" placeholder="Enter middle name">
+                            </div>
+                            <div class="form-group">
+                                <label for="lastName">Last Name</label>
+                                <input type="text" id="lastName" name="lastName" value="<%= typeof user !== 'undefined' && user && user.lastName ? user.lastName : '' %>" placeholder="Enter last name">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="username">Username *</label>
+                                <input type="text" id="username" name="username" value="<%= typeof user !== 'undefined' && user ? user.username : '' %>" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email *</label>
+                                <input type="email" id="email" name="email" value="<%= typeof user !== 'undefined' && user ? user.email : '' %>" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="phone">Phone Number</label>
+                                <input type="tel" id="phone" name="phone" value="<%= typeof user !== 'undefined' && user && user.phone ? user.phone : '' %>" placeholder="Enter 10-digit phone number">
+                            </div>
+                            <div class="form-group">
+                                <label for="dob">Date of Birth</label>
+                                <input type="date" id="dob" name="dob" value="<%= typeof user !== 'undefined' && user && user.dob ? new Date(user.dob).toISOString().split('T')[0] : '' %>">
+                            </div>
+                            <div class="form-group">
+                                <label for="age">Age</label>
+                                <input type="number" id="age" name="age" value="<%= typeof user !== 'undefined' && user && user.age ? user.age : '' %>" min="15" max="25" placeholder="Enter age">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="gender">Gender</label>
+                                <select id="gender" name="gender">
+                                    <option value="">Select Gender</option>
+                                    <option value="Male" <%= typeof user !== 'undefined' && user && user.gender === 'Male' ? 'selected' : '' %>>Male</option>
+                                    <option value="Female" <%= typeof user !== 'undefined' && user && user.gender === 'Female' ? 'selected' : '' %>>Female</option>
+                                    <option value="Other" <%= typeof user !== 'undefined' && user && user.gender === 'Other' ? 'selected' : '' %>>Other</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="city">City</label>
+                                <input type="text" id="city" name="city" value="<%= typeof user !== 'undefined' && user && user.city ? user.city : '' %>" placeholder="Enter your city">
+                            </div>
+                            <div class="form-group">
+                                <label for="state">State</label>
+                                <input type="text" id="state" name="state" value="<%= typeof user !== 'undefined' && user && user.state ? user.state : '' %>" placeholder="Enter your state">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Educational Information -->
+                    <div class="form-section">
+                        <h2 class="section-title">
+                            <i class="fas fa-graduation-cap"></i> Educational Details
+                        </h2>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="tenthPercentage">10th Percentage</label>
+                                <input type="number" id="tenthPercentage" name="tenthPercentage" value="<%= typeof user !== 'undefined' && user && user.tenthPercentage ? user.tenthPercentage : '' %>" min="0" max="100" step="0.01" placeholder="Enter percentage">
+                            </div>
+                            <div class="form-group">
+                                <label for="board">Board</label>
+                                <select id="board" name="board">
+                                    <option value="">Select Board</option>
+                                    <option value="SSC" <%= typeof user !== 'undefined' && user && user.board === 'SSC' ? 'selected' : '' %>>SSC</option>
+                                    <option value="CBSE" <%= typeof user !== 'undefined' && user && user.board === 'CBSE' ? 'selected' : '' %>>CBSE</option>
+                                    <option value="ICSE" <%= typeof user !== 'undefined' && user && user.board === 'ICSE' ? 'selected' : '' %>>ICSE</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="physicsMarks">Physics Marks</label>
+                                <input type="number" id="physicsMarks" name="physicsMarks" value="<%= typeof user !== 'undefined' && user && user.physicsMarks ? user.physicsMarks : '' %>" min="0" max="100" placeholder="Enter marks">
+                            </div>
+                            <div class="form-group">
+                                <label for="chemistryMarks">Chemistry Marks</label>
+                                <input type="number" id="chemistryMarks" name="chemistryMarks" value="<%= typeof user !== 'undefined' && user && user.chemistryMarks ? user.chemistryMarks : '' %>" min="0" max="100" placeholder="Enter marks">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="mathsMarks">Maths Marks</label>
+                                <input type="number" id="mathsMarks" name="mathsMarks" value="<%= typeof user !== 'undefined' && user && user.mathsMarks ? user.mathsMarks : '' %>" min="0" max="100" placeholder="Enter marks">
+                            </div>
+                            <div class="form-group">
+                                <label for="biologyMarks">Biology Marks</label>
+                                <input type="number" id="biologyMarks" name="biologyMarks" value="<%= typeof user !== 'undefined' && user && user.biologyMarks ? user.biologyMarks : '' %>" min="0" max="100" placeholder="Enter marks">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group full-width">
+                                <label for="interest">Area of Interest</label>
+                                <input type="text" id="interest" name="interest" value="<%= typeof user !== 'undefined' && user && user.interest ? user.interest : '' %>" placeholder="e.g., Engineering, Medicine, Commerce">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Change Password -->
+                    <div class="form-section">
+                        <h2 class="section-title">
+                            <i class="fas fa-lock"></i> Change Password
+                        </h2>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="currentPassword">Current Password</label>
+                                <input type="password" id="currentPassword" name="currentPassword" placeholder="Enter current password">
+                            </div>
+                            <div class="form-group">
+                                <label for="newPassword">New Password</label>
+                                <input type="password" id="newPassword" name="newPassword" placeholder="Enter new password">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Form Actions -->
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary" onclick="cancelEdit()">
+                            <i class="fas fa-times"></i> Cancel
+                        </button>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i> Save Changes
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div id="deleteModal" class="modal">
+        <div class="modal-content">
+            <h3>Delete Account</h3>
+            <p>Are you sure you want to delete your account? This action cannot be undone.</p>
+            <p><strong>All your data including test results will be permanently deleted.</strong></p>
+            <div class="modal-actions">
+                <button class="btn btn-secondary" onclick="closeDeleteModal()">Cancel</button>
+                <button class="btn btn-danger" onclick="deleteAccount()">Delete Account</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success/Error Messages -->
+    <div id="notification" class="notification"></div>
+
+    <script src="/js/profile.js"></script>
+</body>
+</html>

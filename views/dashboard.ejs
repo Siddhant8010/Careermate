@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CareerMate - Student Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <img src="/Images/logo.png" alt="CareerMate Logo" class="logo-img">
+                <span>CareerMate</span>
+            </div>
+            <div class="header-right">
+                <!-- Added dark mode toggle button -->
+                <button class="theme-toggle" onclick="toggleTheme()" title="Toggle Dark Mode">
+                    <i class="fas fa-moon" id="theme-icon"></i>
+                </button>
+                <div class="profile-dropdown">
+                    <div class="profile-trigger" onclick="toggleProfileDropdown()">
+                        <img src="https://ui-avatars.com/api/?name=<%= username %>&size=40&background=000ead&color=fff&bold=true" alt="Profile" class="profile-avatar">
+                        <!-- Fixed profile name spacing -->
+                        <span class="profile-name"><%= username %></span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="dropdown-menu" id="profileDropdown">
+                        <a href="/profile"><i class="fas fa-user"></i> Profile</a>
+                        <a href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+                
+            <nav class="sidebar-nav">
+                <a href="javascript:void(0)" class="nav-item active" onclick="showPage('dashboard')" data-page="dashboard">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="javascript:void(0)" class="nav-item" onclick="showPage('tests')" data-page="tests">
+                    <i class="fas fa-clipboard-list"></i>
+                    <span>My Tests</span>
+                </a>
+                <a href="javascript:void(0)" class="nav-item" onclick="showPage('recommendations')" data-page="recommendations">
+                    <i class="fas fa-lightbulb"></i>
+                    <span>Recommendations</span>
+                </a>
+                <a href="javascript:void(0)" class="nav-item" onclick="showPage('career-paths')" data-page="career-paths">
+                    <i class="fas fa-road"></i>
+                    <span>Career Paths</span>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Dashboard Page -->
+            <div id="dashboard-page" class="page active">
+                <div class="page-header">
+                    <h1>Dashboard</h1>
+                    <p>Track your progress and explore your career journey</p>
+                </div>
+
+                <div class="dashboard-grid">
+                    <!-- Welcome Card -->
+                    <div class="card welcome-card">
+                        <div class="card-content">
+                            <!-- Removed gamification badge -->
+                            <h2>Welcome ,<%= username %>!</h2>
+                            <p>You're doing great! Keep exploring your career options.</p>
+                            <div class="progress-stats">
+                                <div class="stat">
+                                    <span class="stat-number"><%= typeof testsCompleted !== 'undefined' ? testsCompleted : 0 %></span>
+                                    <span class="stat-label">Tests Completed</span>
+                                </div>
+                                <div class="stat">
+                                    <span class="stat-number"><%= typeof profileComplete !== 'undefined' ? profileComplete : 85 %>%</span>
+                                    <span class="stat-label">Profile Complete</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Test Progress Tracker -->
+                    <!-- Test Result Card -->
+<div class="card progress-card">
+    <div class="card-header">
+        <h3>Latest Test Result</h3>
+        <% if (typeof latestResult !== 'undefined' && latestResult) { %>
+        <span class="progress-percentage"><%= latestResult.percentage %>%</span>
+        <% } else { %>
+        <span class="progress-percentage">--</span>
+        <% } %>
+    </div>
+    <div class="card-content">
+        <% if (typeof latestResult !== 'undefined' && latestResult) { %>
+        <div class="progress-bar">
+            <div class="progress-fill" data-width="<%= latestResult.percentage %>"></div>
+        </div>
+        <div class="next-step">
+            <p><strong>Score:</strong> <%= latestResult.score %>/<%= latestResult.totalQuestions %> (<%= latestResult.percentage %>%)</p>
+            <p><strong>Date:</strong> <%= new Date(latestResult.date).toLocaleDateString() %></p>
+            <button class="btn btn-primary" onclick="window.location.href='/test'">Retake Test</button>
+        </div>
+        <% } else { %>
+        <p>No tests completed yet</p>
+        <button class="btn btn-primary" onclick="window.location.href='/test-rules'">Take Your First Test</button>
+        <% } %>
+    </div>
+</div>
+
+
+                    <!-- Recommended Stream Card -->
+                    <div class="card stream-card">
+                        <div class="card-header">
+                            <h3>Recommended Stream</h3>
+                            <% if (typeof confidenceScore !== 'undefined' && confidenceScore > 0) { %>
+                            <div class="confidence-score"><%= confidenceScore %>% Match</div>
+                            <% } %>
+                        </div>
+                        <div class="card-content">
+                            <% if (typeof recommendedStream !== 'undefined' && recommendedStream && recommendedStream !== 'Not Available') { %>
+                            <div class="stream-recommendation">
+                                <div class="stream-icon">
+                                    <% if (recommendedStream === 'Science') { %>
+                                    <i class="fas fa-flask"></i>
+                                    <% } else if (recommendedStream === 'Commerce') { %>
+                                    <i class="fas fa-chart-line"></i>
+                                    <% } else { %>
+                                    <i class="fas fa-palette"></i>
+                                    <% } %>
+                                </div>
+                                <div class="stream-info">
+                                    <h4><%= recommendedStream %> Stream</h4>
+                                    <p>Based on your test performance and aptitude</p>
+                                </div>
+                            </div>
+                            <button class="btn btn-outline" onclick="showPage('recommendations')">View Details</button>
+                            <% } else { %>
+                            <p>Complete a test to get your stream recommendation</p>
+                            <button class="btn btn-primary" onclick="window.location.href='/test-rules'">Take Test</button>
+                            <% } %>
+                        </div>
+                    </div>
+
+                    <!-- Quick Links -->
+                    <div class="card quick-links-card">
+                        <div class="card-header">
+                            <h3>Quick Actions</h3>
+                        </div>
+                        <div class="card-content">
+                            <div class="quick-links">
+                                <button class="quick-link-btn" onclick="takeTest()">
+                                    <i class="fas fa-plus"></i>
+                                    <span>Take New Test</span>
+                                </button>
+                                <button class="quick-link-btn" onclick="showPage('career-paths')">
+                                    <i class="fas fa-search"></i>
+                                    <span>Explore Careers</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Available Tests Section -->
+                <div class="card" style="grid-column: 1 / -1; margin-top: 2rem;">
+                    <div class="card-header">
+                        <h3>Available Tests</h3>
+                        <p style="font-size: 0.9rem; color: #666; margin-top: 0.5rem;">Choose a test to assess your skills and interests</p>
+                    </div>
+                    <div class="card-content">
+                        <div id="available-tests-container" class="tests-grid">
+                            <div style="text-align: center; padding: 2rem; color: #999;">
+                                <i class="fas fa-spinner fa-spin" style="font-size: 2rem;"></i>
+                                <p>Loading available tests...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- My Tests Page -->
+            <div id="tests-page" class="page">
+                <div class="page-header">
+                    <h1>My Tests</h1>
+                    <p>View your completed assessments and results</p>
+                </div>
+
+                <div class="tests-grid">
+                    <% if (typeof allResults !== 'undefined' && allResults && allResults.length > 0) { %>
+                        <% allResults.forEach((result, index) => { %>
+                        <div class="test-card completed">
+                            <div class="test-header">
+                                <h3>Career Assessment Test #<%= index + 1 %></h3>
+                                <span class="test-score"><%= result.score %>/<%= result.totalQuestions %></span>
+                            </div>
+                            <div class="test-content">
+                                <p class="test-date">Completed on <%= new Date(result.date).toLocaleDateString() %></p>
+                                <div class="test-subjects">
+                                    <span class="subject-tag">Physics: <%= result.subjectScores.physics %></span>
+                                    <span class="subject-tag">Chemistry: <%= result.subjectScores.chemistry %></span>
+                                    <span class="subject-tag">Maths: <%= result.subjectScores.maths %></span>
+                                    <span class="subject-tag">Biology: <%= result.subjectScores.biology %></span>
+                                </div>
+                                <p><strong>Stream:</strong> <%= result.stream %></p>
+                                <button class="btn btn-outline" onclick="window.location.href='/result/<%= result.id %>'">View Report</button>
+                            </div>
+                        </div>
+                        <% }); %>
+                    <% } else { %>
+                        <div class="test-card pending">
+                            <div class="test-header">
+                                <h3>No Tests Completed</h3>
+                                <span class="test-status">Pending</span>
+                            </div>
+                            <div class="test-content">
+                                <p class="test-description">Take your first career assessment test</p>
+                                <button class="btn btn-primary" onclick="window.location.href='/test-rules'">Start Test</button>
+                            </div>
+                        </div>
+                    <% } %>
+                    
+                    <!-- Always show option to take new test -->
+                    <div class="test-card pending">
+                        <div class="test-header">
+                            <h3>New Assessment</h3>
+                            <span class="test-status">Available</span>
+                        </div>
+                        <div class="test-content">
+                            <p class="test-description">Take a new test to refine your career recommendations</p>
+                            <button class="btn btn-primary" onclick="window.location.href='/test-rules'">Start New Test</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recommendations Page -->
+            <div id="recommendations-page" class="page">
+                <div class="page-header">
+                    <h1>Stream Recommendations</h1>
+                    <p>Detailed analysis of your recommended academic stream</p>
+                </div>
+
+                <div class="recommendation-content">
+                    <% if (typeof recommendedStream !== 'undefined' && recommendedStream && recommendedStream !== 'Not Available') { %>
+                    <div class="stream-result">
+                        <div class="stream-header">
+                            <div class="stream-icon <%= recommendedStream.toLowerCase() %> large">
+                                <% if (recommendedStream === 'Science') { %>
+                                <i class="fas fa-flask"></i>
+                                <% } else if (recommendedStream === 'Commerce') { %>
+                                <i class="fas fa-chart-line"></i>
+                                <% } else { %>
+                                <i class="fas fa-palette"></i>
+                                <% } %>
+                            </div>
+                            <div class="stream-details">
+                                <h2><%= recommendedStream %> Stream</h2>
+                                <% if (confidenceScore > 0) { %>
+                                <div class="confidence-badge"><%= confidenceScore %>% Confidence Match</div>
+                                <% } %>
+                            </div>
+                        </div>
+
+                        <div class="analysis-grid">
+                            <div class="card strengths-card">
+                                <h3>Your Strengths</h3>
+                                <ul class="strengths-list">
+                                    <% if (latestResult) { %>
+                                        <% if (recommendedStream === 'Science') { %>
+                                            <% if (latestResult.subjectScores.physics >= 4) { %>
+                                            <li><i class="fas fa-check"></i> Excellent Physics Problem-Solving</li>
+                                            <% } %>
+                                            <% if (latestResult.subjectScores.chemistry >= 4) { %>
+                                            <li><i class="fas fa-check"></i> Strong Chemical Concepts Understanding</li>
+                                            <% } %>
+                                            <% if (latestResult.subjectScores.maths >= 4) { %>
+                                            <li><i class="fas fa-check"></i> Advanced Mathematical Reasoning</li>
+                                            <% } %>
+                                            <% if (latestResult.subjectScores.biology >= 4) { %>
+                                            <li><i class="fas fa-check"></i> Biological Sciences Aptitude</li>
+                                            <% } %>
+                                            <% if (latestResult.subjectScores.logicalreasoning >= 4) { %>
+                                            <li><i class="fas fa-check"></i> Scientific Analytical Thinking</li>
+                                            <% } %>
+                                            <% if (latestResult.subjectScores.physics >= 3 && latestResult.subjectScores.maths >= 3) { %>
+                                            <li><i class="fas fa-check"></i> Engineering Aptitude</li>
+                                            <% } %>
+                                            <% if (latestResult.subjectScores.biology >= 3 && latestResult.subjectScores.chemistry >= 3) { %>
+                                            <li><i class="fas fa-check"></i> Medical Sciences Potential</li>
+                                            <% } %>
+                                        <% } else if (recommendedStream === 'Commerce') { %>
+                                            <% if (latestResult.subjectScores.maths >= 4) { %>
+                                            <li><i class="fas fa-check"></i> Numerical Analysis & Statistics</li>
+                                            <% } %>
+                                            <% if (latestResult.subjectScores.logicalreasoning >= 4) { %>
+                                            <li><i class="fas fa-check"></i> Business Logic & Decision Making</li>
+                                            <% } %>
+                                            <% if (latestResult.subjectScores.maths >= 3 && latestResult.subjectScores.logicalreasoning >= 3) { %>
+                                            <li><i class="fas fa-check"></i> Financial Planning Aptitude</li>
+                                            <% } %>
+                                            <% if (latestResult.subjectScores.chemistry >= 3) { %>
+                                            <li><i class="fas fa-check"></i> Analytical Problem Solving</li>
+                                            <% } %>
+                                            <% if (latestResult.overallScore >= 15) { %>
+                                            <li><i class="fas fa-check"></i> Strategic Thinking Ability</li>
+                                            <% } %>
+                                            <% if (latestResult.subjectScores.physics >= 3) { %>
+                                            <li><i class="fas fa-check"></i> Logical Reasoning Skills</li>
+                                            <% } %>
+                                        <% } else { %>
+                                            <% if (latestResult.subjectScores.logicalreasoning >= 4) { %>
+                                            <li><i class="fas fa-check"></i> Critical Thinking & Analysis</li>
+                                            <% } %>
+                                            <% if (latestResult.subjectScores.biology >= 3) { %>
+                                            <li><i class="fas fa-check"></i> Understanding Human Behavior</li>
+                                            <% } %>
+                                            <% if (latestResult.subjectScores.chemistry >= 3) { %>
+                                            <li><i class="fas fa-check"></i> Research & Investigation Skills</li>
+                                            <% } %>
+                                            <% if (latestResult.overallScore >= 12) { %>
+                                            <li><i class="fas fa-check"></i> Creative Problem Solving</li>
+                                            <% } %>
+                                            <% if (latestResult.subjectScores.maths >= 3) { %>
+                                            <li><i class="fas fa-check"></i> Analytical Writing Potential</li>
+                                            <% } %>
+                                            <% if (latestResult.subjectScores.physics >= 3) { %>
+                                            <li><i class="fas fa-check"></i> Systematic Approach to Learning</li>
+                                            <% } %>
+                                        <% } %>
+                                        <% if (!latestResult.subjectScores.physics && !latestResult.subjectScores.chemistry && !latestResult.subjectScores.maths && !latestResult.subjectScores.biology && !latestResult.subjectScores.logicalreasoning) { %>
+                                        <li><i class="fas fa-info-circle"></i> Take a comprehensive test to identify your strengths</li>
+                                        <% } %>
+                                    <% } else { %>
+                                        <li><i class="fas fa-info-circle"></i> Complete a test to discover your unique strengths</li>
+                                    <% } %>
+                                </ul>
+                            </div>
+
+                            <div class="card improvement-card">
+                                <h3>Areas to Develop</h3>
+                                <ul class="improvement-list">
+                                    <% if (latestResult) { %>
+                                        <% if (recommendedStream === 'Science') { %>
+                                            <% if (latestResult.subjectScores.physics < 3) { %>
+                                            <li><i class="fas fa-arrow-up"></i> Physics Problem-Solving Techniques</li>
+                                            <% } %>
+                                            <% if (latestResult.subjectScores.chemistry < 3) { %>
+                                            <li><i class="fas fa-arrow-up"></i> Chemical Reactions & Equations</li>
+                                            <% } %>
+                                            <% if (latestResult.subjectScores.maths < 3) { %>
+                                            <li><i class="fas fa-arrow-up"></i> Advanced Mathematics & Calculus</li>
+                                            <% } %>
+                                            <% if (latestResult.subjectScores.biology < 3) { %>
+                                            <li><i class="fas fa-arrow-up"></i> Biological Systems & Processes</li>
+                                            <% } %>
+                                            <% if (latestResult.subjectScores.logicalreasoning < 3) { %>
+                                            <li><i class="fas fa-arrow-up"></i> Scientific Method & Research Skills</li>
+                                            <% } %>
+                                            <% if (latestResult.overallScore < 15) { %>
+                                            <li><i class="fas fa-arrow-up"></i> Laboratory Techniques & Safety</li>
+                                            <% } %>
+                                        <% } else if (recommendedStream === 'Commerce') { %>
+                                            <% if (latestResult.subjectScores.maths < 3) { %>
+                                            <li><i class="fas fa-arrow-up"></i> Business Mathematics & Statistics</li>
+                                            <% } %>
+                                            <% if (latestResult.subjectScores.logicalreasoning < 3) { %>
+                                            <li><i class="fas fa-arrow-up"></i> Business Logic & Case Studies</li>
+                                            <% } %>
+                                            <% if (latestResult.subjectScores.physics < 3) { %>
+                                            <li><i class="fas fa-arrow-up"></i> Economic Principles & Analysis</li>
+                                            <% } %>
+                                            <% if (latestResult.subjectScores.chemistry < 3) { %>
+                                            <li><i class="fas fa-arrow-up"></i> Accounting Fundamentals</li>
+                                            <% } %>
+                                            <% if (latestResult.overallScore < 12) { %>
+                                            <li><i class="fas fa-arrow-up"></i> Financial Literacy & Planning</li>
+                                            <% } %>
+                                            <% if (latestResult.subjectScores.biology < 3) { %>
+                                            <li><i class="fas fa-arrow-up"></i> Market Research & Consumer Behavior</li>
+                                            <% } %>
+                                        <% } else { %>
+                                            <% if (latestResult.subjectScores.logicalreasoning < 3) { %>
+                                            <li><i class="fas fa-arrow-up"></i> Critical Analysis & Essay Writing</li>
+                                            <% } %>
+                                            <% if (latestResult.subjectScores.maths < 3) { %>
+                                            <li><i class="fas fa-arrow-up"></i> Statistical Analysis for Research</li>
+                                            <% } %>
+                                            <% if (latestResult.subjectScores.physics < 3) { %>
+                                            <li><i class="fas fa-arrow-up"></i> Historical Context & Timeline Analysis</li>
+                                            <% } %>
+                                            <% if (latestResult.subjectScores.chemistry < 3) { %>
+                                            <li><i class="fas fa-arrow-up"></i> Research Methodology & Sources</li>
+                                            <% } %>
+                                            <% if (latestResult.subjectScores.biology < 3) { %>
+                                            <li><i class="fas fa-arrow-up"></i> Social Sciences & Psychology Basics</li>
+                                            <% } %>
+                                            <% if (latestResult.overallScore < 10) { %>
+                                            <li><i class="fas fa-arrow-up"></i> Creative Expression & Communication</li>
+                                            <% } %>
+                                        <% } %>
+                                        <% if (latestResult.overallScore === 0) { %>
+                                        <li><i class="fas fa-info-circle"></i> Retake the test for personalized improvement suggestions</li>
+                                        <% } %>
+                                    <% } else { %>
+                                        <li><i class="fas fa-info-circle"></i> Take a test to identify specific areas for development</li>
+                                    <% } %>
+                                </ul>
+                            </div>
+
+                            <div class="card careers-preview">
+                                <h3>Recommended Career Paths</h3>
+                                <div class="career-tags">
+                                    <% if (recommendedStream === 'Science') { %>
+                                        <% if (latestResult && latestResult.subjectScores.physics >= 4 && latestResult.subjectScores.maths >= 4) { %>
+                                        <span class="career-tag priority">Engineering</span>
+                                        <% } else { %>
+                                        <span class="career-tag">Engineering</span>
+                                        <% } %>
+                                        <% if (latestResult && latestResult.subjectScores.biology >= 4 && latestResult.subjectScores.chemistry >= 4) { %>
+                                        <span class="career-tag priority">Medicine</span>
+                                        <% } else { %>
+                                        <span class="career-tag">Medicine</span>
+                                        <% } %>
+                                        <% if (latestResult && latestResult.subjectScores.logicalreasoning >= 4) { %>
+                                        <span class="career-tag priority">Research Scientist</span>
+                                        <% } else { %>
+                                        <span class="career-tag">Research</span>
+                                        <% } %>
+                                        <span class="career-tag">Data Science</span>
+                                        <span class="career-tag">Biotechnology</span>
+                                    <% } else if (recommendedStream === 'Commerce') { %>
+                                        <% if (latestResult && latestResult.subjectScores.maths >= 4) { %>
+                                        <span class="career-tag priority">Chartered Accountant</span>
+                                        <% } else { %>
+                                        <span class="career-tag">Chartered Accountant</span>
+                                        <% } %>
+                                        <% if (latestResult && latestResult.subjectScores.logicalreasoning >= 4) { %>
+                                        <span class="career-tag priority">Investment Banking</span>
+                                        <% } else { %>
+                                        <span class="career-tag">Investment Banking</span>
+                                        <% } %>
+                                        <span class="career-tag">Business Analyst</span>
+                                        <span class="career-tag">Financial Planner</span>
+                                        <span class="career-tag">Entrepreneur</span>
+                                        <span class="career-tag">Digital Marketing</span>
+                                    <% } else { %>
+                                        <% if (latestResult && latestResult.subjectScores.logicalreasoning >= 4) { %>
+                                        <span class="career-tag priority">Civil Services</span>
+                                        <% } else { %>
+                                        <span class="career-tag">Civil Services</span>
+                                        <% } %>
+                                        <span class="career-tag">Journalism</span>
+                                        <span class="career-tag">Psychology</span>
+                                        <span class="career-tag">Creative Arts</span>
+                                        <span class="career-tag">Social Work</span>
+                                        <span class="career-tag">Content Writing</span>
+                                    <% } %>
+                                </div>
+                                
+                                <button class="btn btn-primary" onclick="showPage('career-paths')">Explore All Careers</button>
+                            </div>
+                        </div>
+                    </div>
+                    <% } else { %>
+                    <div class="stream-result">
+                        <p style="text-align: center; padding: 2rem;">Complete a test to get personalized stream recommendations</p>
+                        <div style="text-align: center;">
+                            <button class="btn btn-primary" onclick="window.location.href='/test-rules'">Take Test Now</button>
+                        </div>
+                    </div>
+                    <% } %>
+                </div>
+            </div>
+
+            <!-- Career Paths Page -->
+            <div id="career-paths-page" class="page">
+                <div class="page-header">
+                    <h1>Career Paths</h1>
+                    <p>Explore different streams and their career opportunities</p>
+                </div>
+
+                <div class="streams-grid">
+                    <div class="stream-card science-stream">
+                        <div class="stream-card-header">
+                            <!-- Simplified career path icons -->
+                            <div class="stream-icon">
+                                <i class="fas fa-flask"></i>
+                            </div>
+                            <h3>Science Stream</h3>
+                        </div>
+                        <div class="stream-card-content">
+                            <div class="careers-list">
+                                <h4>Popular Careers:</h4>
+                                <ul>
+                                    <li>Engineering (₹5-15 LPA)</li>
+                                    <li>Medicine (₹8-25 LPA)</li>
+                                    <li>Research Scientist (₹6-20 LPA)</li>
+                                    <li>Data Scientist (₹8-30 LPA)</li>
+                                </ul>
+                            </div>
+                            <div class="opportunities">
+                                <span class="opportunity-tag">High Growth</span>
+                                <span class="opportunity-tag">Global Opportunities</span>
+                            </div>
+                            <button class="btn btn-outline read-more-btn" onclick="openStreamDetails('science')">
+                                <i class="fas fa-info-circle"></i> Read More
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="stream-card commerce-stream">
+                        <div class="stream-card-header">
+                            <!-- Simplified career path icons -->
+                            <div class="stream-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <h3>Commerce Stream</h3>
+                        </div>
+                        <div class="stream-card-content">
+                            <div class="careers-list">
+                                <h4>Popular Careers:</h4>
+                                <ul>
+                                    <li>Chartered Accountant (₹6-20 LPA)</li>
+                                    <li>Investment Banking (₹10-50 LPA)</li>
+                                    <li>Business Analyst (₹5-15 LPA)</li>
+                                    <li>Entrepreneur (Variable)</li>
+                                </ul>
+                            </div>
+                            <div class="opportunities">
+                                <span class="opportunity-tag">Business Leadership</span>
+                                <span class="opportunity-tag">Financial Growth</span>
+                            </div>
+                            <button class="btn btn-outline read-more-btn" onclick="openStreamDetails('commerce')">
+                                <i class="fas fa-info-circle"></i> Read More
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="stream-card arts-stream">
+                        <div class="stream-card-header">
+                            <!-- Simplified career path icons -->
+                            <div class="stream-icon">
+                                <i class="fas fa-palette"></i>
+                            </div>
+                            <h3>Arts Stream</h3>
+                        </div>
+                        <div class="stream-card-content">
+                            <div class="careers-list">
+                                <h4>Popular Careers:</h4>
+                                <ul>
+                                    <li>Civil Services (₹7-15 LPA)</li>
+                                    <li>Journalism (₹4-12 LPA)</li>
+                                    <li>Psychology (₹5-18 LPA)</li>
+                                    <li>Creative Arts (₹3-25 LPA)</li>
+                                </ul>
+                            </div>
+                            <div class="opportunities">
+                                <span class="opportunity-tag">Creative Expression</span>
+                                <span class="opportunity-tag">Social Impact</span>
+                            </div>
+                            <button class="btn btn-outline read-more-btn" onclick="openStreamDetails('arts')">
+                                <i class="fas fa-info-circle"></i> Read More
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Mobile Menu Toggle -->
+    <button class="mobile-menu-toggle" onclick="toggleSidebar()">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Stream Details Modal -->
+    <div id="streamModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Stream Details</h2>
+                <span class="close" onclick="closeStreamDetails()">&times;</span>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- Content will be dynamically loaded -->
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/dashboard.js" ></script>
+</body>
+</html>

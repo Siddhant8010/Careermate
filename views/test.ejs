@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Career Mate - Aptitude Test</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/test.css">
+    </head>
+<body>
+    <header class="header">
+        <div class="header-logo">
+            <img src="/Images/logo.png" alt="CareerMate Logo" class="logo-img">
+            <h1>Career Mate</h1>
+        </div>
+    </header>
+
+    <div class="test-menu-bar">
+        <!-- Added timer emoji and progress bar -->
+        <div class="menu-left">
+            <div class="timer-display" id="timerDisplay">⏱️ 30:00</div>
+        </div>
+        
+        <div class="progress-container">
+            <div class="progress-label" id="progressLabel">Progress: 0/20 answered</div>
+            <div class="progress-bar-menu">
+                <div class="progress-fill-menu" id="progressFillMenu"></div>
+            </div>
+        </div>
+        
+        <button class="btn btn-submit" id="submitBtn">Submit Test</button>
+    </div>
+
+    <main class="test-container">
+        <aside class="test-progress-navigator">
+            <h3>Test Progress</h3>
+            
+            <div class="subject-section">
+                <h4 class="subject-heading" data-subject="physics">Physics</h4>
+                <div class="question-indicators" id="physicsIndicators"></div>
+            </div>
+
+            <div class="subject-section">
+                <h4 class="subject-heading" data-subject="chemistry">Chemistry</h4>
+                <div class="question-indicators" id="chemistryIndicators"></div>
+            </div>
+
+            <div class="subject-section">
+                <h4 class="subject-heading" data-subject="maths">Mathematics</h4>
+                <div class="question-indicators" id="mathsIndicators"></div>
+            </div>
+
+            <div class="subject-section">
+                <h4 class="subject-heading" data-subject="biology">Biology</h4>
+                <div class="question-indicators" id="biologyIndicators"></div>
+            </div>
+
+            <div class="subject-section">
+                <h4 class="subject-heading" data-subject="logicalreasoning">Logical Reasoning</h4>
+                <div class="question-indicators" id="logicalreasoningIndicators"></div>
+            </div>
+        </aside>
+
+        <section class="question-view">
+            <div class="question-card">
+                <div class="question-header">
+                    <span class="question-number" id="questionNumber">Question 1</span>
+                    <span class="question-subject" id="questionSubject">Physics</span>
+                </div>
+                <p class="question-text" id="questionText"></p>
+                <div class="options-container" id="optionsContainer"></div>
+            </div>
+
+            <div class="navigation-buttons">
+                <button class="btn btn-secondary" id="prevBtn">Previous</button>
+                <button class="btn btn-primary" id="nextBtn">Next</button>
+            </div>
+        </section>
+    </main>
+
+    <!-- Submit Confirmation Modal -->
+    <div id="submitModal" class="modal">
+        <div class="modal-content">
+            <h3>Confirm Submission</h3>
+            <p id="modalMessage">Are you sure you want to end the test early?</p>
+            <p id="timeRemaining"></p>
+            <div class="modal-actions">
+                <button class="btn btn-secondary" id="cancelSubmit">Cancel</button>
+                <button class="btn btn-primary" id="confirmSubmit">Submit</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pass questions data to JavaScript -->
+    <script type="application/json" id="questions-data">
+        <%- JSON.stringify(questions || []) %>
+    </script>
+    <script src="/js/test.js"></script>
+    <script src="/debug-logical-reasoning.js"></script>
+</body>
+</html>

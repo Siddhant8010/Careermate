@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - CareerMate</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/admindash.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+    <div class="admin-container">
+        <!-- Added mobile menu toggle button -->
+        <button class="mobile-menu-toggle" onclick="toggleMobileMenu()" aria-label="Toggle navigation menu">
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+        </button>
+
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="logo-section">
+                    <img src="/Images/logo.png" alt="CareerMate Logo" class="admin-logo">
+                    <h2 class="logo-text">CareerMate</h2>
+                </div>
+                <div class="admin-profile">
+                    <div class="admin-avatar">
+                        <img src="https://ui-avatars.com/api/?name=Admin&background=667eea&color=fff&size=80" alt="Admin Profile" id="admin-avatar">
+                    </div>
+                    <div class="admin-info">
+                        <p class="admin-role">Admin</p>
+                        <p id="admin-username" class="admin-name">Administrator</p>
+                    </div>
+                </div>
+                <!-- Added dark mode toggle button -->
+                <button class="theme-toggle" onclick="toggleTheme()" title="Toggle Dark Mode">
+                    <span class="theme-icon">🌙</span>
+                </button>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#" class="nav-link active" data-page="dashboard">
+                    
+                    Dashboard
+                </a></li>
+                <li><a href="#" class="nav-link" data-page="users">
+                    
+                    Users
+                </a></li>
+                <li><a href="#" class="nav-link" data-page="tests">
+                    
+                    Tests
+                </a></li>
+                <li><a href="#" class="nav-link" data-page="questions">
+                    
+                    Questions
+                </a></li>
+                <li><a href="#" class="nav-link" data-page="results">
+                    
+                    Results
+                </a></li>
+            </ul>
+            <div class="sidebar-footer">
+                <button class="btn btn-danger logout-btn" onclick="handleLogout()">
+                    
+                    Logout
+                </button>
+            </div>
+        </nav>
+
+        <!-- Added mobile overlay for sidebar -->
+        <div class="mobile-overlay" id="mobile-overlay" onclick="closeMobileMenu()"></div>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Dashboard Page -->
+            <div id="dashboard-page" class="page active">
+                <div class="page-header">
+                    <h1>Dashboard Overview</h1>
+                    <p>Welcome to Career Mate Admin Dashboard</p>
+                </div>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">👥</div>
+                        <div class="stat-info">
+                            <h3 id="total-users">0</h3>
+                            <p>Total Users</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">❓</div>
+                        <div class="stat-info">
+                            <h3 id="total-questions">0</h3>
+                            <p>Total Questions</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">📈</div>
+                        <div class="stat-info">
+                            <h3 id="total-results">0</h3>
+                            <p>Results Generated</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">📝</div>
+                        <div class="stat-info">
+                            <h3 id="total-tests">0</h3>
+                            <p>Total Tests</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="quick-actions">
+                    <h2>Quick Actions</h2>
+                    <div class="action-buttons">
+                        <button class="btn btn-primary" onclick="showPage('questions')">Manage Questions</button>
+                        <button class="btn btn-secondary" onclick="showPage('results')">View Results</button>
+                        <button class="btn btn-secondary" onclick="showPage('users')">Manage Users</button>
+                    </div>
+                </div>
+
+                <!-- Charts Section -->
+                <div class="charts-section">
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3>Questions by Subject</h3>
+                            <p>Distribution of questions across subjects</p>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="questionsChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3>User Activity</h3>
+                            <p>Recent user registrations</p>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="usersChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="charts-section">
+                    <div class="chart-card full-width">
+                        <div class="chart-header">
+                            <h3>Test Results Overview</h3>
+                            <p>Average scores by subject</p>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="resultsChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Users Page -->
+            <div id="users-page" class="page">
+                <div class="page-header">
+                    <h1>Users Management</h1>
+                </div>
+                
+                <div class="table-container">
+                    <!-- Added responsive table wrapper -->
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Registration Date</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="users-table-body">
+                                <!-- Users will be populated here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tests Page -->
+            <div id="tests-page" class="page">
+                <div class="page-header">
+                    <h1>Tests Management</h1>
+                    <p style="color: var(--text-secondary); margin-top: 0.5rem;">Manage subject-based aptitude tests</p>
+                </div>
+                
+                <div class="table-container">
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Subject</th>
+                                    <th>Test Name</th>
+                                    <th>Description</th>
+                                    <th>Questions</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tests-table-body">
+                                <!-- Tests will be populated here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Questions Page -->
+            <div id="questions-page" class="page">
+                <div class="page-header">
+                    <h1>Questions Management</h1>
+                    <div class="page-controls">
+                        <select id="test-selector" onchange="loadQuestions()">
+                            <option value="">Select a subject</option>
+                        </select>
+                        <button class="btn btn-primary" onclick="showAddQuestionModal()" disabled id="add-question-btn">Add Question</button>
+                        <button class="btn btn-secondary" onclick="refreshQuestions()" id="refresh-questions-btn">🔄 Refresh</button>
+                    </div>
+                </div>
+                
+                <div id="questions-container">
+                    <p class="empty-state">Select a subject to view and manage questions</p>
+                </div>
+            </div>
+
+            <!-- Results Page -->
+            <div id="results-page" class="page">
+                <div class="page-header">
+                    <h1>Test Results</h1>
+                    <button class="btn btn-secondary" onclick="refreshResults()">
+                        <span>🔄</span> Refresh
+                    </button>
+                </div>
+                
+                <div class="table-container">
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>User</th>
+                                    <th>Subject</th>
+                                    <th>Score</th>
+                                    <th>Suggested Career</th>
+                                    <th>Date & Time</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="results-table-body">
+                                <!-- Results will be populated here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- Modals -->
+    <div id="modal-overlay" class="modal-overlay">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 id="modal-title">Modal Title</h3>
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="modal-body">
+                <!-- Modal content will be populated here -->
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/admindash.js"></script>
+</body>
+</html>
