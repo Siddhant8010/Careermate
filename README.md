@@ -119,7 +119,7 @@ CareerMate/
    Create a `.env` file in the root directory:
    ```env
    # Database Configuration
-   MONGO_URL=mongodb://localhost:27017/careermate
+   MONGO_URL=mongodb://localhost:27017/
    
    # Server Configuration
    PORT=3000
