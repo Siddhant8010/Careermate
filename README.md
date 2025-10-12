@@ -53,6 +53,7 @@
 - **Detailed Results Analysis** - In-depth performance breakdown with subject-wise scoring
 - **PDF Report Generation** - Professional test results reports with charts and analysis
 - **Email Integration** - Automated result delivery with PDF attachments
+- **Chatbot**-for 24*7 Assistance and guidance 
 
 ### 👥 User Management
 - **Student Portal** - Secure registration, login, and profile management
