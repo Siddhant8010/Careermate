@@ -2,10 +2,18 @@
 
 **CareerMate** is a comprehensive career guidance system that helps students discover their ideal academic stream through intelligent aptitude testing and personalized recommendations.
 
-![CareerMate Logo](public/Images/logo.png)
+## � System Flowchart
 
-## 📚 Table of Contents
+<div align="center">
 
+![CareerMate System Flowchart](screenshots/flowchart.png)
+*Complete system flow showing user journey from registration to career recommendations*
+
+</div>
+
+##  Table of Contents
+
+- [System Flowchart](#-system-flowchart)
 - [Screenshots](#-screenshots)
 - [Features](#-features)
 - [Technology Stack](#️-technology-stack)
@@ -28,65 +36,24 @@
 ![Homepage](screenshots/homepage.png)
 *Clean, modern interface welcoming users to CareerMate*
 
-**User Registration**
-![Registration](screenshots/registration.png)
-*Simple and secure user registration process*
 
-**Login Interface**
+
+**Users Dashboard**
 ![Login Page](screenshots/login-page.png)
-*Secure authentication with modern design*
+*Simple and user friendly dashboard*
 
 </div>
 
 ### 🎯 Testing Experience
 <div align="center">
 
-**Student Dashboard**
-![Dashboard](screenshots/dashboard.png)
-*Personalized dashboard showing test history and progress*
-
-**Aptitude Test Interface**
-![Test Interface](screenshots/test-interface.png)
-*Interactive test environment with timer and progress tracking*
-
-**Test Results & Analysis**
-![Test Results](screenshots/test-results.png)
-*Comprehensive results with subject-wise breakdown and recommendations*
-
-</div>
-
-### 📊 Reports & Analytics
-<div align="center">
-
-**PDF Report Sample**
-![PDF Report](screenshots/pdf-report.png)
-*Professional PDF reports with detailed analysis and career guidance*
-
-**Email Notification**
-![Email Template](screenshots/email-template.png)
-*Automated email delivery with attached PDF reports*
-
-</div>
-
-### 🔧 Admin Panel
-<div align="center">
-
 **Admin Dashboard**
-![Admin Dashboard](screenshots/admin-dashboard.png)
-*Comprehensive admin controls for managing users and tests*
+![Dashboard](screenshots/dashboard.png)
+*Admin dashboard showing detailed test history and progress*
+
 
 </div>
 
-### 📱 Mobile Responsive
-<div align="center">
-
-**Mobile Experience**
-![Mobile Responsive](screenshots/mobile-responsive.png)
-*Fully responsive design optimized for all devices*
-
-</div>
-
----
 
 ## 🌟 Features
 
