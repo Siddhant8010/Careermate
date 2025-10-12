@@ -4,6 +4,88 @@
 
 ![CareerMate Logo](public/Images/logo.png)
 
+## 📚 Table of Contents
+
+- [Screenshots](#-screenshots)
+- [Features](#-features)
+- [Technology Stack](#️-technology-stack)
+- [Project Structure](#-project-structure)
+- [Getting Started](#-getting-started)
+- [Usage](#-usage)
+- [Configuration](#-configuration)
+- [Security Features](#-security-features)
+- [Contributing](#-contributing)
+- [License](#-license)
+
+## 📸 Screenshots
+
+### 🏠 Homepage & User Interface
+<div align="center">
+
+**Main Landing Page**
+![Homepage](screenshots/homepage.png)
+*Clean, modern interface welcoming users to CareerMate*
+
+**User Registration**
+![Registration](screenshots/registration.png)
+*Simple and secure user registration process*
+
+**Login Interface**
+![Login Page](screenshots/login-page.png)
+*Secure authentication with modern design*
+
+</div>
+
+### 🎯 Testing Experience
+<div align="center">
+
+**Student Dashboard**
+![Dashboard](screenshots/dashboard.png)
+*Personalized dashboard showing test history and progress*
+
+**Aptitude Test Interface**
+![Test Interface](screenshots/test-interface.png)
+*Interactive test environment with timer and progress tracking*
+
+**Test Results & Analysis**
+![Test Results](screenshots/test-results.png)
+*Comprehensive results with subject-wise breakdown and recommendations*
+
+</div>
+
+### 📊 Reports & Analytics
+<div align="center">
+
+**PDF Report Sample**
+![PDF Report](screenshots/pdf-report.png)
+*Professional PDF reports with detailed analysis and career guidance*
+
+**Email Notification**
+![Email Template](screenshots/email-template.png)
+*Automated email delivery with attached PDF reports*
+
+</div>
+
+### 🔧 Admin Panel
+<div align="center">
+
+**Admin Dashboard**
+![Admin Dashboard](screenshots/admin-dashboard.png)
+*Comprehensive admin controls for managing users and tests*
+
+</div>
+
+### 📱 Mobile Responsive
+<div align="center">
+
+**Mobile Experience**
+![Mobile Responsive](screenshots/mobile-responsive.png)
+*Fully responsive design optimized for all devices*
+
+</div>
+
+---
+
 ## 🌟 Features
 
 ### 🎯 Core Functionality
@@ -230,6 +312,15 @@ CareerMate includes a robust email service for:
 3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
 4. Push to the branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
+
+### 📸 Contributing Screenshots
+
+To add or update screenshots:
+1. Take high-quality screenshots (1920x1080 recommended)
+2. Save them in the `screenshots/` folder with descriptive names
+3. Update the README.md to reference new screenshots
+4. Ensure screenshots are optimized for web (compress if needed)
+5. Follow the naming convention: `feature-description.png`
 
 ## 📄 License
 
