@@ -306,7 +306,6 @@ CareerMate includes a robust email service for:
 4. Push to the branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-<<<<<<< HEAD
 ### 📸 Contributing Screenshots
 
 To add or update screenshots:
@@ -319,8 +318,6 @@ To add or update screenshots:
 ## 📄 License
 
 This project is licensed under the ISC License - see the [LICENSE](LICENSE) file for details.
-=======
->>>>>>> de17b3cb2a8ce625eb5bb8fd656523f55ee8e63d
 
 ## 👨‍💻 Author
 
