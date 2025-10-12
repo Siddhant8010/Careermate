@@ -28,9 +28,8 @@
 ![Homepage](screenshots/homepage.png)
 *Clean, modern interface welcoming users to CareerMate*
 
-**User Registration**
-![Registration](screenshots/registration.png)
-*Simple and secure user registration process*
+**Users Dashboard**
+*Simple and  user friendly dashboard*
 
 **Login Interface**
 ![Login Page](screenshots/login-page.png)
@@ -55,38 +54,6 @@
 
 </div>
 
-### 📊 Reports & Analytics
-<div align="center">
-
-**PDF Report Sample**
-![PDF Report](screenshots/pdf-report.png)
-*Professional PDF reports with detailed analysis and career guidance*
-
-**Email Notification**
-![Email Template](screenshots/email-template.png)
-*Automated email delivery with attached PDF reports*
-
-</div>
-
-### 🔧 Admin Panel
-<div align="center">
-
-**Admin Dashboard**
-![Admin Dashboard](screenshots/admin-dashboard.png)
-*Comprehensive admin controls for managing users and tests*
-
-</div>
-
-### 📱 Mobile Responsive
-<div align="center">
-
-**Mobile Experience**
-![Mobile Responsive](screenshots/mobile-responsive.png)
-*Fully responsive design optimized for all devices*
-
-</div>
-
----
 
 ## 🌟 Features
 
