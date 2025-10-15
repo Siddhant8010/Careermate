@@ -25,9 +25,6 @@
 - [Contributing](#-contributing)
 - [License](#-license)
 
-## 📸 Screenshots
-
-> **Note**: Screenshots are being added progressively. Some images may not display until the corresponding screenshot files are uploaded to the `screenshots/` directory.
 
 ### 🏠 Homepage & User Interface
 <div align="center">
