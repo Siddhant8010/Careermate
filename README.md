@@ -265,7 +265,9 @@ CareerMate includes a robust email service for:
 ## 👨‍💻 Author
 
 **Siddhant8010**
-- GitHub: [@Siddhant8010][(https://github.com/Siddhant8010)
+**himansh-afk**
+- GitHub:[@Siddhant8010] [@himansh-afk]
+- [(https://github.com/Siddhant8010)
 - Repository: [CareerMate](https://github.com/Siddhant8010/Careermate)
 
 ## 🙏 Acknowledgments
