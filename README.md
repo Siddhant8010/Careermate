@@ -265,16 +265,6 @@ CareerMate includes a robust email service for:
 4. Push to the branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-### 📸 Contributing Screenshots
-
-To add or update screenshots:
-1. Take high-quality screenshots (1920x1080 recommended)
-2. Save them in the `screenshots/` folder with descriptive names
-3. Update the README.md to reference new screenshots
-4. Ensure screenshots are optimized for web (compress if needed)
-5. Follow the naming convention: `feature-description.png`
-
-
 ## 👨‍💻 Author
 
 **Siddhant8010**
