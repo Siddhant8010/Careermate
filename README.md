@@ -196,13 +196,6 @@ CareerMate/
    # The application will be available at http://localhost:3000
    ```
 
-## 📋 Available Scripts
-
-- `npm start` - Start the production server
-- `npm run seed:questions` - Seed the database with test questions
-- `npm run seed:force` - Force reseed questions (overwrites existing)
-- `npm run check:questions` - Verify questions in database
-- `npm run sync:profiles` - Synchronize student profiles
 
 ## 🎯 Usage
 
@@ -264,7 +257,6 @@ CareerMate includes a robust email service for:
 - **Mobile-First** - Optimized for mobile devices
 - **Cross-Browser** - Compatible with modern browsers
 
-
 ## 🤝 Contributing
 
 1. Fork the repository
@@ -282,14 +274,11 @@ To add or update screenshots:
 4. Ensure screenshots are optimized for web (compress if needed)
 5. Follow the naming convention: `feature-description.png`
 
-## 📄 License
-
-This project is licensed under the ISC License - see the [LICENSE](LICENSE) file for details.
 
 ## 👨‍💻 Author
 
 **Siddhant8010**
-- GitHub: [@Siddhant8010](https://github.com/Siddhant8010)
+- GitHub: [@Siddhant8010][(https://github.com/Siddhant8010)
 - Repository: [CareerMate](https://github.com/Siddhant8010/Careermate)
 
 ## 🙏 Acknowledgments
